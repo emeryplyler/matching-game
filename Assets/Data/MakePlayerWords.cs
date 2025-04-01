@@ -4,19 +4,33 @@ using System.IO;
 
 public class MakePlayerWords : MonoBehaviour
 {
+    [HideInInspector]
     public PlayerWordsScriptable playerWords; // instance of scriptable object
+    
+    public GameObject idea;
+
+    public Transform spawnPoint1, spawnPoint2;
+    public List<GameObject> ideas;
+
+    const string jsonFilePath = "Assets/Data/PlayerWordFile.json";
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         playerWords = ScriptableObject.CreateInstance<PlayerWordsScriptable>();
-        playerWords.allPlayerWords = makeTempList();
+        // playerWords.allPlayerWords = makeTempList();
 
-        ReadFile("Assets/Data/PlayerWordFile.json");
+        ReadFile(jsonFilePath);
 
         // WriteFile("Assets/Data/PlayerWordFile.json");
-        playerWords.display();
+        playerWords.display(); // debug
 
+        ideas = new List<GameObject>{}; // list of references to spawned objects
+        // StartCoroutine(spawnIdeas());
+        GameObject newIdeaGO = Instantiate(idea, spawnPoint1.position, spawnPoint1.rotation);
+        IdeaInteraction newIdea = newIdeaGO.GetComponent<IdeaInteraction>();
+        newIdea.setWord("orange", 0, 0);
+        ideas.Add(newIdeaGO);
     }
 
     List<PlayerWord> makeTempList() // just generate the user's words for now
@@ -51,4 +65,14 @@ public class MakePlayerWords : MonoBehaviour
         string infoString = JsonUtility.ToJson(playerWords);
         File.WriteAllText(path, infoString);
     }
+
+    // IEnumerator spawnIdeas()
+    // {
+    //     while (ideas.Count < 8)
+    //     {
+    //         yield return new WaitForSeconds(2.0);
+    //         int randNum = Random.Range(0, 7);
+    //         GameObject newIdea = Instantiate(idea, spawnPoint1.position, spawnPoint1.rotation);
+    //     }
+    // }
 }
