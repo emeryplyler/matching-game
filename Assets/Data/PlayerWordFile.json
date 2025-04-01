@@ -1,0 +1,13 @@
+{
+    "username": "",
+    "allPlayerWords": [
+        { "word": "cat", "testCorrectCount": 3, "testIncorrectCount": 2 },
+        { "word": "dog", "testCorrectCount": 2, "testIncorrectCount": 1 },
+        { "word": "me", "testCorrectCount": 6, "testIncorrectCount": 1 },
+        { "word": "you", "testCorrectCount": 5, "testIncorrectCount": 1 },
+        { "word": "I", "testCorrectCount": 4, "testIncorrectCount": 2 },
+        { "word": "am", "testCorrectCount": 3, "testIncorrectCount": 4 },
+        { "word": "is", "testCorrectCount": 3, "testIncorrectCount": 5 },
+        { "word": "tuna", "testCorrectCount": 20, "testIncorrectCount": 0 }
+    ]
+}
