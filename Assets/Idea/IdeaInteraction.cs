@@ -9,6 +9,11 @@ public class IdeaInteraction : MonoBehaviour
         word = new PlayerWord(name, right, wrong);
     }
 
+    public void setWord(PlayerWord newWord)
+    {
+        word = newWord;
+    }
+
     void OnTriggerEnter2D(Collider2D col)
     {
         if (col.tag == "Player")

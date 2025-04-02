@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 using System.IO;
 
 public class MakePlayerWords : MonoBehaviour
@@ -12,6 +13,10 @@ public class MakePlayerWords : MonoBehaviour
     public Transform spawnPoint1, spawnPoint2;
     public List<GameObject> ideas;
 
+    public List<PlayerWord> ideasToSpawn;
+
+    public bool canSpawn = true;
+
     const string jsonFilePath = "Assets/Data/PlayerWordFile.json";
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -20,17 +25,23 @@ public class MakePlayerWords : MonoBehaviour
         playerWords = ScriptableObject.CreateInstance<PlayerWordsScriptable>();
         // playerWords.allPlayerWords = makeTempList();
 
-        ReadFile(jsonFilePath);
+        ReadFile(jsonFilePath); // retrieve player's words, store in playerWords
+        ideasToSpawn = playerWords.allPlayerWords;
 
         // WriteFile("Assets/Data/PlayerWordFile.json");
-        playerWords.display(); // debug
+        // playerWords.display(); // debug
 
         ideas = new List<GameObject>{}; // list of references to spawned objects
         // StartCoroutine(spawnIdeas());
-        GameObject newIdeaGO = Instantiate(idea, spawnPoint1.position, spawnPoint1.rotation);
-        IdeaInteraction newIdea = newIdeaGO.GetComponent<IdeaInteraction>();
-        newIdea.setWord("orange", 0, 0);
-        ideas.Add(newIdeaGO);
+        
+    }
+
+    void Update()
+    {
+        if (canSpawn) {
+            StartCoroutine(spawnIdeas());
+            canSpawn = false;
+        }
     }
 
     List<PlayerWord> makeTempList() // just generate the user's words for now
@@ -66,13 +77,27 @@ public class MakePlayerWords : MonoBehaviour
         File.WriteAllText(path, infoString);
     }
 
-    // IEnumerator spawnIdeas()
-    // {
-    //     while (ideas.Count < 8)
-    //     {
-    //         yield return new WaitForSeconds(2.0);
-    //         int randNum = Random.Range(0, 7);
-    //         GameObject newIdea = Instantiate(idea, spawnPoint1.position, spawnPoint1.rotation);
-    //     }
-    // }
+    IEnumerator spawnIdeas()
+    {
+        print("coroutine started");
+        print(ideasToSpawn.Count);
+        while (ideasToSpawn.Count > 0)
+        {
+            int randNum = Random.Range(0, ideasToSpawn.Count);
+            GameObject newIdeaGO = Instantiate(idea, spawnPoint1.position, spawnPoint1.rotation);
+            IdeaInteraction newIdea = newIdeaGO.GetComponent<IdeaInteraction>();
+            
+            // choose which of the words to spawn
+            PlayerWord chosenWord = ideasToSpawn[randNum];
+            newIdea.setWord(chosenWord);
+            print("Before remove: count is " + ideasToSpawn.Count);
+            ideasToSpawn.RemoveAt(randNum);
+            print("After remove: count is " + ideasToSpawn.Count);
+
+            ideas.Add(newIdeaGO);
+            print("coroutine running");
+            yield return null;
+        }
+        print("coroutine finished");
+    }
 }
