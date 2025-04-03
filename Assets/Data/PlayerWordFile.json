@@ -5,7 +5,7 @@
             "word": "cat",
             "testCorrectCount": 3,
             "testIncorrectCount": 2,
-            "image_paths": ["Images / pexels-photo", "Images/pexels-photo-236606", "Images/pexels-photo-1276553", "", "", "", ""]
+            "image_paths": ["Images/pexels-photo", "Images/pexels-photo-236606", "Images/pexels-photo-1276553", "", "", "", ""]
         },
         {
             "word": "dog",

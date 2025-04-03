@@ -2,20 +2,24 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
 using System.IO;
+using TMPro;
 
 public class MakePlayerWords : MonoBehaviour
 {
     [HideInInspector]
     public PlayerWordsScriptable playerWords; // instance of scriptable object
     
-    public GameObject idea;
+    public GameObject idea; // reference to idea prefab to instantiate
 
     public Transform spawnPoint1, spawnPoint2;
-    public List<GameObject> ideas;
+    public List<GameObject> ideas; // all ideas spawned in
 
     public List<PlayerWord> ideasToSpawn;
+    public GameObject goalword; // the one they have to touch
 
     public bool canSpawn = true;
+
+    public TextMeshProUGUI goalText;
 
     const string jsonFilePath = "Assets/Data/PlayerWordFile.json";
 
@@ -23,7 +27,7 @@ public class MakePlayerWords : MonoBehaviour
     void Start()
     {
         playerWords = ScriptableObject.CreateInstance<PlayerWordsScriptable>();
-        playerWords.allPlayerWords = makeTempList();
+        playerWords.allPlayerWords = MakeTempList();
 
         ReadFile(jsonFilePath); // retrieve player's words, store in playerWords
         ideasToSpawn = playerWords.allPlayerWords;
@@ -32,8 +36,7 @@ public class MakePlayerWords : MonoBehaviour
         // playerWords.display(); // debug
 
         ideas = new List<GameObject>{}; // list of references to spawned objects
-        StartCoroutine(spawnIdeas());
-        
+        StartCoroutine(SpawnIdeas());
     }
 
     void Update()
@@ -44,16 +47,19 @@ public class MakePlayerWords : MonoBehaviour
         // }
     }
 
-    List<PlayerWord> makeTempList() // just generate the user's words for now
+    List<PlayerWord> MakeTempList() // just generate the user's words for now
     {
-        List<PlayerWord> list = new List<PlayerWord>{};
-        list.Add(new PlayerWord("cat", 3, 2, new string[7]));
-        list.Add(new PlayerWord("dog", 2, 1, new string[7]));
-        list.Add(new PlayerWord("me", 6, 1, new string[7]));
-        list.Add(new PlayerWord("you", 5, 1, new string[7]));
-        list.Add(new PlayerWord("I", 4, 2, new string[7]));
-        list.Add(new PlayerWord("am", 3, 4, new string[7]));
-        list.Add(new PlayerWord("is", 3, 5, new string[7]));
+        List<PlayerWord> list = new()
+        {
+            // List<PlayerWord> list = new List<PlayerWord>{};
+            new PlayerWord("cat", 3, 2, new string[7]),
+            new PlayerWord("dog", 2, 1, new string[7]),
+            new PlayerWord("me", 6, 1, new string[7]),
+            new PlayerWord("you", 5, 1, new string[7]),
+            new PlayerWord("I", 4, 2, new string[7]),
+            new PlayerWord("am", 3, 4, new string[7]),
+            new PlayerWord("is", 3, 5, new string[7])
+        };
         return list;
     }
 
@@ -77,7 +83,7 @@ public class MakePlayerWords : MonoBehaviour
         File.WriteAllText(path, infoString);
     }
 
-    IEnumerator spawnIdeas()
+    IEnumerator SpawnIdeas()
     {
         while (ideasToSpawn.Count > 0)
         {
@@ -87,11 +93,20 @@ public class MakePlayerWords : MonoBehaviour
             
             // choose which of the words to spawn
             PlayerWord chosenWord = ideasToSpawn[randNum];
-            newIdea.setWord(chosenWord);
+            newIdea.SetWord(chosenWord);
             ideasToSpawn.RemoveAt(randNum);
 
             ideas.Add(newIdeaGO);
             yield return null;
         }
+        goalword = ChooseGoal(); // choose one of the words spawned in
+    }
+
+    GameObject ChooseGoal()
+    {
+        int randNum = Random.Range(0, ideas.Count);
+        GameObject chosen = ideas[randNum];
+        goalText.text = chosen.GetComponent<IdeaInteraction>().word.word;
+        return chosen;
     }
 }
