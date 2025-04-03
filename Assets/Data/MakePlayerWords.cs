@@ -23,7 +23,7 @@ public class MakePlayerWords : MonoBehaviour
     void Start()
     {
         playerWords = ScriptableObject.CreateInstance<PlayerWordsScriptable>();
-        // playerWords.allPlayerWords = makeTempList();
+        playerWords.allPlayerWords = makeTempList();
 
         ReadFile(jsonFilePath); // retrieve player's words, store in playerWords
         ideasToSpawn = playerWords.allPlayerWords;
@@ -32,28 +32,28 @@ public class MakePlayerWords : MonoBehaviour
         // playerWords.display(); // debug
 
         ideas = new List<GameObject>{}; // list of references to spawned objects
-        // StartCoroutine(spawnIdeas());
+        StartCoroutine(spawnIdeas());
         
     }
 
     void Update()
     {
-        if (canSpawn) {
-            StartCoroutine(spawnIdeas());
-            canSpawn = false;
-        }
+        // if (canSpawn) {
+        //     StartCoroutine(spawnIdeas());
+        //     canSpawn = false;
+        // }
     }
 
     List<PlayerWord> makeTempList() // just generate the user's words for now
     {
         List<PlayerWord> list = new List<PlayerWord>{};
-        list.Add(new PlayerWord("cat", 3, 2));
-        list.Add(new PlayerWord("dog", 2, 1));
-        list.Add(new PlayerWord("me", 6, 1));
-        list.Add(new PlayerWord("you", 5, 1));
-        list.Add(new PlayerWord("I", 4, 2));
-        list.Add(new PlayerWord("am", 3, 4));
-        list.Add(new PlayerWord("is", 3, 5));
+        list.Add(new PlayerWord("cat", 3, 2, new string[7]));
+        list.Add(new PlayerWord("dog", 2, 1, new string[7]));
+        list.Add(new PlayerWord("me", 6, 1, new string[7]));
+        list.Add(new PlayerWord("you", 5, 1, new string[7]));
+        list.Add(new PlayerWord("I", 4, 2, new string[7]));
+        list.Add(new PlayerWord("am", 3, 4, new string[7]));
+        list.Add(new PlayerWord("is", 3, 5, new string[7]));
         return list;
     }
 
@@ -79,8 +79,6 @@ public class MakePlayerWords : MonoBehaviour
 
     IEnumerator spawnIdeas()
     {
-        print("coroutine started");
-        print(ideasToSpawn.Count);
         while (ideasToSpawn.Count > 0)
         {
             int randNum = Random.Range(0, ideasToSpawn.Count);
@@ -90,14 +88,10 @@ public class MakePlayerWords : MonoBehaviour
             // choose which of the words to spawn
             PlayerWord chosenWord = ideasToSpawn[randNum];
             newIdea.setWord(chosenWord);
-            print("Before remove: count is " + ideasToSpawn.Count);
             ideasToSpawn.RemoveAt(randNum);
-            print("After remove: count is " + ideasToSpawn.Count);
 
             ideas.Add(newIdeaGO);
-            print("coroutine running");
             yield return null;
         }
-        print("coroutine finished");
     }
 }

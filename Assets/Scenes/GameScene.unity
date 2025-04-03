@@ -2829,6 +2829,8 @@ MonoBehaviour:
   spawnPoint1: {fileID: 2075513630}
   spawnPoint2: {fileID: 139581595}
   ideas: []
+  ideasToSpawn: []
+  canSpawn: 1
 --- !u!4 &882120854
 Transform:
   m_ObjectHideFlags: 0
@@ -3127,17 +3129,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: Idea
       objectReference: {fileID: 0}
+    - target: {fileID: 5665330839418825417, guid: f690c93ec2ad51f4286fefa813b215d2, type: 3}
+      propertyPath: sprite
+      value: 
+      objectReference: {fileID: 5770958956045166959, guid: d6226265b1829ff4ca9bfc71a9fc1e53, type: 3}
+    - target: {fileID: 5665330839418825417, guid: f690c93ec2ad51f4286fefa813b215d2, type: 3}
+      propertyPath: word.image_paths.Array.size
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 8673931137512529868, guid: f690c93ec2ad51f4286fefa813b215d2, type: 3}
       propertyPath: m_Color.b
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8673931137512529868, guid: f690c93ec2ad51f4286fefa813b215d2, type: 3}
       propertyPath: m_Color.g
-      value: 0.26699996
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8673931137512529868, guid: f690c93ec2ad51f4286fefa813b215d2, type: 3}
       propertyPath: m_Color.r
-      value: 0.68923503
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

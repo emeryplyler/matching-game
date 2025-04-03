@@ -1,13 +1,59 @@
 {
     "username": "",
     "allPlayerWords": [
-        { "word": "cat", "testCorrectCount": 3, "testIncorrectCount": 2 },
-        { "word": "dog", "testCorrectCount": 2, "testIncorrectCount": 1 },
-        { "word": "me", "testCorrectCount": 6, "testIncorrectCount": 1 },
-        { "word": "you", "testCorrectCount": 5, "testIncorrectCount": 1 },
-        { "word": "I", "testCorrectCount": 4, "testIncorrectCount": 2 },
-        { "word": "am", "testCorrectCount": 3, "testIncorrectCount": 4 },
-        { "word": "is", "testCorrectCount": 3, "testIncorrectCount": 5 },
-        { "word": "tuna", "testCorrectCount": 20, "testIncorrectCount": 0 }
+        {
+            "word": "cat",
+            "testCorrectCount": 3,
+            "testIncorrectCount": 2,
+            "image_paths": ["Images / pexels-photo", "Images/pexels-photo-236606", "Images/pexels-photo-1276553", "", "", "", ""]
+        },
+        {
+            "word": "dog",
+            "testCorrectCount": 2,
+            "testIncorrectCount": 1,
+            "image_paths": ["Images / misc.jpg", "", "", "", "", "", ""]
+        },
+        {
+            "word": "me",
+            "testCorrectCount": 6,
+            "testIncorrectCount": 1,
+            "image_paths": ["Assets/Data/Images/misc.jpg", "", "", "", "", "", ""]
+        },
+        {
+            "word": "you",
+            "testCorrectCount": 5,
+            "testIncorrectCount": 1,
+            "image_paths": ["Assets/Data/Images/misc.jpg", "", "", "", "", "", ""]
+        },
+        {
+            "word": "I",
+            "testCorrectCount": 4,
+            "testIncorrectCount": 2,
+            "image_paths": ["Assets/Data/Images/misc.jpg", "", "", "", "", "", ""]
+        },
+        {
+            "word": "am",
+            "testCorrectCount": 3,
+            "testIncorrectCount": 4,
+            "image_paths": ["Assets/Data/Images/misc.jpg", "", "", "", "", "", ""]
+        },
+        {
+            "word": "is",
+            "testCorrectCount": 3,
+            "testIncorrectCount": 5,
+            "image_paths": ["Assets/Data/Images/misc.jpg", "", "", "", "", "", ""]
+        },
+        {
+            "word": "he",
+            "testCorrectCount": 3,
+            "testIncorrectCount": 2,
+            "image_paths": ["Assets/Data/Images/misc.jpg", "", "", "", "", "", ""]
+        },
+        {
+            "word": "she",
+            "testCorrectCount": 3,
+            "testIncorrectCount": 5,
+            "image_paths": ["Assets/Data/Images/misc.jpg", "", "", "", "", "", ""]
+        }
     ]
 }
